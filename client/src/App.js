@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import styled from "styled-components";
 import bg from './img/bg.png';
 import { MainLayout } from './styles/Layout';
 import Orb from './components/Orb/Orb';
+import Navigation from './components/Navigation/Navigation';
+import Dashboard from './components/Dashboard/Dashboard';
+import Incomes from './components/Incomes/Incomes'
+import Expenses from './components/Expenses/Expenses';
+import { useGlobalContext } from './context/globalContext';
+
 
 const AppStyled = styled.div`
   height: 100vh;
@@ -23,11 +29,39 @@ const AppStyled = styled.div`
 
 
 function App() {
+  
+  const [active, setActive] = useState(1)
+
+  const global = useGlobalContext()
+  console.log(global);
+
+  const displayData = () => {
+    switch(active) {
+      case 1:
+        return <Dashboard />
+      case 2:
+        return <Dashboard />
+      case 3:
+        return <Incomes />
+      case 4: 
+        return <Expenses />
+      default: 
+        return <Dashboard />
+    }
+  }
+
+  const orbMemo = useMemo(() => {
+    return <Orb />
+  }, [])
+
   return (
     <AppStyled bg={bg} className="App">
-      <Orb/>
+      {orbMemo}
       <MainLayout>
-        <h1>Hello</h1>
+        <Navigation active={active} setActive={setActive}/>
+        <main>
+          {displayData()}
+        </main>
       </MainLayout>
     </AppStyled>
   );
