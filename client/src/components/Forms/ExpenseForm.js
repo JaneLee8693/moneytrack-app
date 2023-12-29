@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
-import { useGlobalContext } from '../../context/globalContext';
-import Button from '../Button/Button';
-import { plus } from '../../utils/Icons';
+import "react-datepicker/dist/react-datepicker.css"
+import { useGlobalContext } from '../../context/globalContext'
+import Button from '../Button/Button'
+import { plus } from '../../utils/Icons'
 
-
-const FormStyled = styled.form`
+const ExpenseFormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -54,10 +53,9 @@ const FormStyled = styled.form`
     }
 `;
 
-function Form() {
+function ExpenseForm() {
 
-    const {addIncome} = useGlobalContext()
-
+    const {addExpense} = useGlobalContext()
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
@@ -66,7 +64,7 @@ function Form() {
         description: '',
     })
 
-    const { title, amount, date, category,description } = inputState;
+    const { title, amount, date, category, description } = inputState;
 
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
@@ -75,7 +73,7 @@ function Form() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        addIncome(inputState)
+        addExpense(inputState)
         setInputState({
             title: '',
             amount: '',
@@ -86,14 +84,14 @@ function Form() {
     }
 
     return (
-        <FormStyled onSubmit={handleSubmit}>
+        <ExpenseFormStyled onSubmit={handleSubmit}>
             {/* {error && <p className='error'>{error}</p>} */}
             <div className="input-control">
                 <input 
                     type="text" 
                     value={title}
                     name={'title'} 
-                    placeholder="Salary Title"
+                    placeholder="Expense Title"
                     onChange={handleInput('title')}
                 />
             </div>
@@ -101,7 +99,7 @@ function Form() {
                 <input value={amount}  
                     type="text" 
                     name={'amount'} 
-                    placeholder={'Salary Amount'}
+                    placeholder={'Expense Amount'}
                     onChange={handleInput('amount')} 
                 />
             </div>
@@ -118,15 +116,22 @@ function Form() {
             </div>
             <div className="selects input-control">
                 <select required value={category} name="category" id="category" onChange={handleInput('category')}>
-                    <option value=""  disabled >Select Option</option>
-                    <option value="salary">Salary</option>
-                    <option value="freelancing">Freelancing</option>
-                    <option value="investments">Investiments</option>
-                    <option value="stocks">Stocks</option>
-                    <option value="bitcoin">Bitcoin</option>
-                    <option value="bank">Bank Transfer</option>
-                    <option value="ecommerce">E-commerce</option>   
-                    <option value="media">Social Media</option>  
+                    <option value="" disabled >Select Option</option>
+                    <option value="education">Education</option>
+                    <option value="groceries">Groceries</option>
+                    <option value="health">Health</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="food delivery">Food Delivery</option>
+                    <option value="clothing">Clothing</option>  
+                    <option value="travel">Travel</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="house">House</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="tax">Tax</option>
+                    <option value="credit card">Credit Card</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="insurance">Insurance</option>
                     <option value="other">Other</option>  
                 </select>
             </div>
@@ -135,7 +140,7 @@ function Form() {
             </div>
             <div className="submit-btn">
                 <Button 
-                    name={'Add Income'}
+                    name={'Add Expense'}
                     icon={plus}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}
@@ -143,8 +148,8 @@ function Form() {
                     color={'#fff'}
                 />
             </div>
-        </FormStyled>
+        </ExpenseFormStyled>
     )
 }
 
-export default Form
+export default ExpenseForm

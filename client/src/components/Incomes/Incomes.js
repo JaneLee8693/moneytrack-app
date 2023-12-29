@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext'
 import { InnerLayout } from '../../styles/Layout'
-import Form from '../Form/Form'
-import IncomeItem from '../IncomeItem/IncomeItem'
+import IncomeForm from '../Forms/IncomeForm'
+import ListItem from '../ListItem/ListItem'
 
 const IncomeStyled = styled.div`
     display: flex;
@@ -47,15 +47,15 @@ function Incomes() {
     <IncomeStyled>
       <InnerLayout>
           <h1>Incomes</h1>
-          <h2 className="total-income">Total Income: <span></span></h2>
+          <h2 className="total-income">Total Income: <span>${totalIncome()}</span></h2>
           <div className="income-content">
               <div className="form-container">
-                  <Form />
+                  <IncomeForm />
               </div>
               <div className="incomes">
                   {incomes.map((income) => {
                       const {_id, title, amount, date, category, description, type} = income;
-                      return <IncomeItem
+                      return <ListItem
                           key={_id}
                           id={_id} 
                           title={title} 

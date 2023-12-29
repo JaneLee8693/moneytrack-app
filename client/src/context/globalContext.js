@@ -16,7 +16,7 @@ export const GlobalProvider = ({children}) => {
             .catch((err) =>{
                 setError(err.response.data.message)
             })
-        // getIncomes()
+        getIncomes()
     }
 
     const getIncomes = async() => {
@@ -32,13 +32,12 @@ export const GlobalProvider = ({children}) => {
 
     const totalIncome = () => {
         let totalIncome = 0;
-        incomes.forEach((income) =>{
+        incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
 
         return totalIncome;
     }
-
 
     // calculate incomes
     const addExpense = async(income) => {
@@ -60,18 +59,18 @@ export const GlobalProvider = ({children}) => {
         getExpenses()
     }
 
-    const totalExpenses = () => {
-        let totalIncome = 0;
-        expenses.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
+    const totalExpense = () => {
+        let totalExpense = 0;
+        expenses.forEach((expense) =>{
+            totalExpense = totalExpense + expense.amount
         })
 
-        return totalIncome;
+        return totalExpense;
     }
 
 
     const totalBalance = () => {
-        return totalIncome() - totalExpenses()
+        return totalIncome() - totalExpense()
     }
 
     const transactionHistory = () => {
@@ -90,13 +89,13 @@ export const GlobalProvider = ({children}) => {
             addIncome,
             getIncomes,
             incomes,
-            // deleteIncome,
-            // expenses,
-            // totalIncome,
-            // addExpense,
-            // getExpenses,
-            // deleteExpense,
-            // totalExpenses,
+            deleteIncome,
+            totalIncome,
+            expenses,
+            addExpense,
+            getExpenses, 
+            deleteExpense,
+            totalExpense,
             // totalBalance,
             // transactionHistory,
             // error,
