@@ -27,7 +27,7 @@ exports.addExpense = async (req, res) => {
         res.status(500).json({message: 'Server Error'})
     }
 
-    console.log(expense)
+    // console.log(expense)
 }
 
 exports.getExpenses = async (req, res) => {
@@ -45,7 +45,7 @@ exports.deleteExpense = async (req, res) => {
         .then((expense) => {
             res.status(200).json({message: 'Expense Deleted'})
         })
-        .catch((err) =>{
+        .catch((err) => {
             res.status(500).json({message: 'Server Error'})
         })
 }

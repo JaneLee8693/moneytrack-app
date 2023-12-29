@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/avatar.jpg'
-import { signout } from '../../utils/Icons'
+// import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 
 const NavStyled = styled.nav`
@@ -86,7 +86,7 @@ function Navigation({active, setActive}) {
             <div className="user-con">
                 <img src={avatar} alt="account avatar" />
                 <div className="text">
-                    <h2>Jane</h2>
+                    <h2>User</h2>
                     <p>Your Money</p>
                 </div>
             </div>
@@ -102,11 +102,11 @@ function Navigation({active, setActive}) {
                     </li>
                 })}
             </ul>
-            <div className="bottom-nav">
+            {/* <div className="bottom-nav">
                 <li>
                     {signout} Sign Out
                 </li>
-            </div>
+            </div> */}
         </NavStyled>
     )
 }

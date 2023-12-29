@@ -90,6 +90,16 @@ function Dashboard() {
         getExpenses()
     }, [])
 
+    const minMaxIncome = () => {
+        const incomeAmounts = incomes.map((item) => item.amount);
+        return incomes.length ? [Math.min(...incomeAmounts), Math.max(...incomeAmounts)] : [0, 0];
+    };
+
+    const minMaxExpense = () => {
+        const expenseAmounts = expenses.map((item) => item.amount);
+        return expenses.length ? [Math.min(...expenseAmounts), Math.max(...expenseAmounts)] : [0, 0];
+    };
+
     return (
         <DashboardStyled>
             <InnerLayout>
@@ -120,23 +130,15 @@ function Dashboard() {
                     </div>
                     <div className="history-con">
                         <History />
-                        <h2 className="salary-title">Min <span>Salary</span>Max</h2>
+                        <h2 className="salary-title">Min <span>Income</span>Max</h2>
                         <div className="salary-item">
-                            <p>
-                                ${Math.min(...incomes.map(item => item.amount))}
-                            </p>
-                            <p>
-                                ${Math.max(...incomes.map(item => item.amount))}
-                            </p>
+                            <p>${minMaxIncome()[0]}</p>
+                            <p>${minMaxIncome()[1]}</p>
                         </div>
                         <h2 className="salary-title">Min <span>Expense</span>Max</h2>
                         <div className="salary-item">
-                            <p>
-                                ${Math.min(...expenses.map(item => item.amount))}
-                            </p>
-                            <p>
-                                ${Math.max(...expenses.map(item => item.amount))}
-                            </p>
+                            <p>${minMaxExpense()[0]}</p>
+                            <p>${minMaxExpense()[1]}</p>
                         </div>
                     </div>
                 </div>

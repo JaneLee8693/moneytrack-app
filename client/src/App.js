@@ -7,7 +7,7 @@ import Navigation from './components/Navigation/Navigation';
 import Dashboard from './components/Dashboard/Dashboard';
 import Incomes from './components/Incomes/Incomes'
 import Expenses from './components/Expenses/Expenses';
-import { useGlobalContext } from './context/globalContext';
+// import { useGlobalContext } from './context/globalContext';
 
 
 const AppStyled = styled.div`
