@@ -39,7 +39,7 @@ export const GlobalProvider = ({children}) => {
         return totalIncome;
     }
 
-    // calculate incomes
+    // calculate expenses
     const addExpense = async(income) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income)
             .catch((err) =>{
@@ -96,10 +96,10 @@ export const GlobalProvider = ({children}) => {
             getExpenses, 
             deleteExpense,
             totalExpense,
-            // totalBalance,
-            // transactionHistory,
-            // error,
-            // setError
+            totalBalance,
+            transactionHistory,
+            error,
+            setError
             }
         }>
             {children}

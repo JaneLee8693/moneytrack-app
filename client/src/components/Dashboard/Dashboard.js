@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
-// import { useGlobalContext } from '../../context/globalContext';
-// import History from '../../History/History';
-import { InnerLayout } from '../../styles/Layout';
-// import { dollar } from '../../utils/Icons';
-// import Chart from '../Chart/Chart';
+import { useGlobalContext } from '../../context/globalContext'
+import History from '../../history/History'
+import { InnerLayout } from '../../styles/Layout'
+import { dollar } from '../../utils/Icons'
+import Chart from '../Chart/Chart'
 
 const DashboardStyled = styled.div`
     .stats-con{
@@ -29,7 +29,7 @@ const DashboardStyled = styled.div`
                     border-radius: 20px;
                     padding: 1rem;
                     p{
-                        font-size: 3.5rem;
+                        font-size: 2.5rem;
                         font-weight: 700;
                     }
                 }
@@ -43,7 +43,7 @@ const DashboardStyled = styled.div`
                     p{
                         color: var(--color-green);
                         opacity: 0.6;
-                        font-size: 4.5rem;
+                        font-size: 3.5rem;
                     }
                 }
             }
@@ -82,12 +82,13 @@ const DashboardStyled = styled.div`
 `;
 
 function Dashboard() {
-    // const {totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
 
-    // useEffect(() => {
-    //     getIncomes()
-    //     getExpenses()
-    // }, [])
+    const {incomes, expenses, getIncomes, getExpenses, totalIncome, totalExpense, totalBalance} = useGlobalContext()
+
+    useEffect(() => {
+        getIncomes()
+        getExpenses()
+    }, [])
 
     return (
         <DashboardStyled>
@@ -95,33 +96,33 @@ function Dashboard() {
                 <h1>All Transactions</h1>
                 <div className="stats-con">
                     <div className="chart-con">
-                        {/* <Chart /> */}
+                        <Chart />
                         <div className="amount-con">
                             <div className="income">
                                 <h2>Total Income</h2>
-                                {/* <p>
+                                <p>
                                     {dollar} {totalIncome()}
-                                </p> */}
+                                </p>
                             </div>
                             <div className="expense">
                                 <h2>Total Expense</h2>
-                                {/* <p>
-                                    {dollar} {totalExpenses()}
-                                </p> */}
+                                <p>
+                                    {dollar} {totalExpense()}
+                                </p>
                             </div>
                             <div className="balance">
                                 <h2>Total Balance</h2>
-                                {/* <p>
+                                <p>
                                     {dollar} {totalBalance()}
-                                </p> */}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className="history-con">
-                        {/* <History /> */}
+                        <History />
                         <h2 className="salary-title">Min <span>Salary</span>Max</h2>
                         <div className="salary-item">
-                            {/* <p>
+                            <p>
                                 ${Math.min(...incomes.map(item => item.amount))}
                             </p>
                             <p>
@@ -135,7 +136,7 @@ function Dashboard() {
                             </p>
                             <p>
                                 ${Math.max(...expenses.map(item => item.amount))}
-                            </p> */}
+                            </p>
                         </div>
                     </div>
                 </div>

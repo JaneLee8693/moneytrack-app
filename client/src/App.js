@@ -32,8 +32,8 @@ function App() {
   
   const [active, setActive] = useState(1)
 
-  const global = useGlobalContext()
-  console.log(global);
+  // const global = useGlobalContext()
+  // console.log(global);
 
   const displayData = () => {
     switch(active) {
