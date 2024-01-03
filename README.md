@@ -1,6 +1,6 @@
 # MoneyTrack App
 
-Expense tracker app developed in MERN (MongoDB, Express, ReactJS, Node.js) stack as well as Styled Components and Chart.js.
+Income/Expense tracker app developed in MERN (MongoDB, Express, ReactJS, Node.js) stack as well as Styled Components and Chart.js.
 
 ## Key Features
 
