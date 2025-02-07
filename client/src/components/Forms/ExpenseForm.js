@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -53,9 +53,9 @@ const ExpenseFormStyled = styled.form`
     }
 `;
 
-function ExpenseForm() {
+function ExpenseForm({ initialData, onSubmit }) {
 
-    const {addExpense, error, setError} = useGlobalContext()
+    const {addExpense, getExpenses, error, setError, updateExpense} = useGlobalContext()
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
@@ -63,6 +63,15 @@ function ExpenseForm() {
         category: '',
         description: '',
     })
+
+    useEffect(() => {
+        if (initialData) {
+            setInputState({
+                ...initialData,
+                date: new Date(initialData.date)
+            });
+        }
+    }, [initialData])
 
     const { title, amount, date, category, description } = inputState;
 
@@ -72,15 +81,20 @@ function ExpenseForm() {
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
-        addExpense(inputState)
+        e.preventDefault();
+        if (initialData) {
+            onSubmit(initialData.id, inputState);
+        } else {
+            addExpense(inputState);
+            getExpenses();
+        }
         setInputState({
             title: '',
             amount: '',
             date: '',
             category: '',
             description: '',
-        })
+        });
     }
 
     return (
@@ -140,7 +154,7 @@ function ExpenseForm() {
             </div>
             <div className="submit-btn">
                 <Button 
-                    name={'Add Expense'}
+                    name={initialData ? 'Update Expense' : 'Add Expense'}
                     icon={plus}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}

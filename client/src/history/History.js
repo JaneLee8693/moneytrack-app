@@ -5,12 +5,14 @@ import { useGlobalContext } from '../context/globalContext'
 const HistoryStyled = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
+    margin-top: -3rem;
     .history-item{
         background: #FCF6F9;
         border: 2px solid #FFFFFF;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
         padding: 1rem;
+        margin-top: -10px@;
         border-radius: 20px;
         display: flex;
         justify-content: space-between;

@@ -38,3 +38,4 @@ export const beauty = <i class="fa-solid fa-person-dress"></i>
 export const tax = <i class="fa-solid fa-file-invoice-dollar"></i>
 export const bank = <i class="fa-solid fa-landmark"></i>
 export const insurance = <i class="fa-solid fa-car-burst"></i>
+export const pen = <i class="fa-solid fa-pen-to-square"></i>

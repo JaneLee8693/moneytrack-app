@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext'
 import { InnerLayout } from '../../styles/Layout'
@@ -23,7 +23,7 @@ const ExpenseStyled = styled.div`
         span{
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--color-green);
+            color: red;
         }
     }
     .expense-content{
@@ -36,11 +36,17 @@ const ExpenseStyled = styled.div`
 `;
 
 function Expenses() {
-    const {addExpense, expenses, getExpenses, deleteExpense, totalExpense} = useGlobalContext()
+    const {addExpense, expenses, getExpenses, deleteExpense, updateExpense, totalExpense} = useGlobalContext()
+    const [editingExpense, setEditingExpense] = useState(null)
 
     useEffect(() =>{
         getExpenses()
     }, [])
+
+    const handleUpdate = (id, updatedExpense) => {
+        updateExpense(id, updatedExpense);
+        setEditingExpense(null);
+    }
 
     return (
         <ExpenseStyled>
@@ -49,12 +55,11 @@ function Expenses() {
                 <h2 className="total-expense">Total Expense: <span>${totalExpense()}</span></h2>
                 <div className="expense-content">
                     <div className="form-container">
-                        <ExpenseForm />
+                        <ExpenseForm initialData={editingExpense} onSubmit={handleUpdate} />
                     </div>
                     <div className="expenses">
                         {expenses.map((expense) => {
                             const {_id, title, amount, date, category, description, type} = expense;
-                            // console.log(expense)
                             return <ListItem
                                 key={_id}
                                 id={_id} 
@@ -64,8 +69,9 @@ function Expenses() {
                                 date={date} 
                                 type={type}
                                 category={category} 
-                                indicatorColor="var(--color-green)"
+                                indicatorColor="red"
                                 deleteItem={deleteExpense}
+                                updateItem={setEditingExpense}
                             />
                         })}
                     </div>

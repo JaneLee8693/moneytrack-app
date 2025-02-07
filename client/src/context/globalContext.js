@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:5000/api/v1/";
+const BASE_URL = "http://localhost:5001/api/v1/";
 const GlobalContext = React.createContext()
 
 export const GlobalProvider = ({children}) => {
@@ -22,12 +22,19 @@ export const GlobalProvider = ({children}) => {
     const getIncomes = async() => {
         const response = await axios.get(`${BASE_URL}get-incomes`)
         setIncomes(response.data)
-        // console.log(response.data)
     }
 
     const deleteIncome = async(id) => {
         const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
         getIncomes()
+    }
+
+    const updateIncome = async (id, updatedIncome) => {
+        const response = await axios.put(`${BASE_URL}update-income/${id}`, updatedIncome)
+            .catch((err) => {
+                setError(err.response.data.message);
+            });
+        getIncomes();
     }
 
     const totalIncome = () => {
@@ -51,12 +58,19 @@ export const GlobalProvider = ({children}) => {
     const getExpenses = async() => {
         const response = await axios.get(`${BASE_URL}get-expenses`)
         setExpenses(response.data)
-        // console.log(response.data)
     }
 
     const deleteExpense = async(id) => {
         const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
+    }
+
+    const updateExpense = async (id, updatedExpense) => {
+        const response = await axios.put(`${BASE_URL}update-expense/${id}`, updatedExpense)
+            .catch((err) => {
+                setError(err.response.data.message);
+            });
+        getExpenses();
     }
 
     const totalExpense = () => {
@@ -76,10 +90,10 @@ export const GlobalProvider = ({children}) => {
     const transactionHistory = () => {
         const history = [...incomes, ...expenses]
         history.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt)
+            return new Date(b.date) - new Date(a.date)
         })
-
-        return history.slice(0, 3)
+    
+        return history.slice(0, 6)
     }
 
 
@@ -90,11 +104,13 @@ export const GlobalProvider = ({children}) => {
             getIncomes,
             incomes,
             deleteIncome,
+            updateIncome,
             totalIncome,
             expenses,
             addExpense,
             getExpenses, 
             deleteExpense,
+            updateExpense,
             totalExpense,
             totalBalance,
             transactionHistory,

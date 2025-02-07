@@ -26,8 +26,6 @@ exports.addIncome = async (req, res) => {
     } catch (error) {
         res.status(500).json({message: 'Server Error'})
     }
-
-    // console.log(income)
 }
 
 exports.getIncomes = async (req, res) =>{
@@ -48,4 +46,14 @@ exports.deleteIncome = async (req, res) => {
         .catch((err) => {
             res.status(500).json({message: 'Server Error'})
         })
+}
+
+exports.updateIncome = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedIncome = await IncomeSchema.findByIdAndUpdate(id, req.body, { new: true });
+        res.status(200).json(updatedIncome);
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating income', error });
+    }
 }

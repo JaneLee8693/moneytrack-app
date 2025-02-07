@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext'
 import { InnerLayout } from '../../styles/Layout'
@@ -37,11 +37,17 @@ const IncomeStyled = styled.div`
 
 function Incomes() {
 
-  const {addIncome, getIncomes, incomes, deleteIncome, totalIncome} = useGlobalContext()
+  const {addIncome, getIncomes, incomes, deleteIncome, updateIncome, totalIncome} = useGlobalContext()
+  const [editingIncome, setEditingIncome] = useState(null)
   
   useEffect(() =>{
     getIncomes()
   }, [])
+
+  const handleUpdate = (id, updatedIncome) => {
+    updateIncome(id, updatedIncome);
+    setEditingIncome(null);
+  } 
 
   return (
     <IncomeStyled>
@@ -50,7 +56,7 @@ function Incomes() {
           <h2 className="total-income">Total Income: <span>${totalIncome()}</span></h2>
           <div className="income-content">
               <div className="form-container">
-                  <IncomeForm />
+                  <IncomeForm initialData={editingIncome} onSubmit={handleUpdate}/>
               </div>
               <div className="incomes">
                   {incomes.map((income) => {
@@ -66,6 +72,7 @@ function Incomes() {
                           category={category} 
                           indicatorColor="var(--color-green)"
                           deleteItem={deleteIncome}
+                          updateItem={setEditingIncome}
                       />
                   })}
               </div>
